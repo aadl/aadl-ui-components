@@ -1,0 +1,133 @@
+/*
+* AADL Pure CSS Dropdown Toggle Component
+*
+Copyright 2024 Ann Arbor District Library
+
+This file is part of AADL UI Components.
+
+AADL UI Components is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+AADL UI Components is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with AADL UI Components. If not, see <https://www.gnu.org/licenses/>. 
+*/
+
+    /*
+    * default toggle style
+    */
+
+    
+    .aadl-toggle.aadl-toggle-main-theme {
+        position: relative;
+        width: 100%;
+        order: 0;
+    }
+
+    .aadl-toggle.aadl-toggle-main-theme .aadl-toggle-text{
+        color: #fff;
+        background-color: #06c;
+        font-family:"Montserrat", sans-serif, arial;
+        padding:8px;
+    }
+
+    .aadl-toggle.aadl-toggle-main-theme input.aadl-toggle-check:checked ~ .aadl-toggle-text span.mobile-only:after{
+        left: 8px;
+    }
+
+
+    .aadl-toggle.aadl-toggle-main-theme .aadl-toggle-arrow .aadl-toggle-arrow-top, .aadl-toggle.aadl-toggle-main-theme  .aadl-toggle-arrow .aadl-toggle-arrow-bottom{
+        border:2px solid #ffffff;
+        background:#ffffff;
+    }
+
+    .aadl-toggle.aadl-toggle-main-theme .aadl-toggle-content-inner{
+        font-family:"Montserrat", sans-serif, arial;
+        background: #edf2f7;
+        box-sizing:border-box;
+        padding:1em 0em;
+    }
+    .aadl-toggle.aadl-toggle-main-theme .aadl-toggle-content-inner ul{
+        padding:0;
+        margin:0;
+        list-style:none;
+        margin-bottom:0.5em;
+    }
+
+    .aadl-toggle.aadl-toggle-main-theme .aadl-toggle-content-inner ul li{
+
+      font-size: 1rem;
+      font-weight:400;
+      color: #000;
+      margin-left:0.5em;
+      margin-bottom:0.3em;
+   
+    }
+
+    .aadl-toggle.aadl-toggle-main-theme .aadl-toggle-content-inner ul li.section-head{
+      line-height: 1.8em;
+      text-decoration: none;
+      font-size: 1.3rem;
+      color: #06c;
+      margin-left:0;
+      
+    }
+
+    .aadl-toggle.aadl-toggle-main-theme .aadl-toggle-content-inner ul > li > ul{
+        margin-top:1.5em;
+    }
+
+    .aadl-toggle.aadl-toggle-main-theme .aadl-toggle-content-inner ul > li:first-child > ul{
+        margin-top:0;
+    }
+
+
+
+    .aadl-toggle.aadl-toggle-main-theme  .aadl-toggle-content-inner ul li a{
+      text-decoration: underline;
+      color: #000;
+    }
+    .aadl-toggle.aadl-toggle-main-theme  .aadl-toggle-content-inner ul li a:visited{
+        color: #000;
+    }
+
+    .aadl-toggle.aadl-toggle-main-theme  .aadl-toggle-content-inner ul li.section-head a{
+      text-decoration: underline;
+      color:#06c;
+    }
+    .aadl-toggle.aadl-toggle-main-theme  .aadl-toggle-content-inner ul li.section-head a:visited{
+      text-decoration: underline;
+      color: #06c;
+    }
+
+
+    /*
+    * desktop
+    */
+    @media screen and (min-width: 768px) {
+
+        .aadl-toggle.aadl-toggle-main-theme {
+            float: left;
+            display: block;
+            width: 23%;
+            margin-right: 0;
+            position: absolute;
+        }
+
+
+        .aadl-toggle.aadl-toggle-main-theme .aadl-toggle-text{
+            color: #000000;
+            background-color: transparent;
+            font-family:"Montserrat", sans-serif, arial;
+            font-size:1.3em;
+        }
+
+        .aadl-toggle.aadl-toggle-main-theme .aadl-toggle-text .desktop-only{
+            
+        }
+
+        .aadl-toggle.aadl-toggle-main-theme .aadl-toggle-content-inner{
+            background: transparent;
+        }
+
+
+    }

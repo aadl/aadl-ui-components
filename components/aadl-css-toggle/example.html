@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<link rel="stylesheet" type="text/css"href="aadl-css-toggle.css">
+<link rel="stylesheet" type="text/css" href="aadl-css-toggle-theme.css">
+
+<style>
+/*
+* allow aadl theme css to work outside of context
+*/
+.aadl-toggle.aadl-toggle-main-theme {
+  position: relative;
+  width: 100%;
+}
+</style>
+
+</head>
+<body>
+
+<h1>PURE CSS Toggle Component</h1>
+
+<h2>Toggles on desktop and mobile</h2>
+
+<div class="aadl-toggle">
+
+	<input class="aadl-toggle-check" type="checkbox" tabindex="0" aria-label="toggle menu with space bar">
+
+    <div class="aadl-toggle-text">
+    	<span class="">Show Menu</span>
+    	<div class="aadl-toggle-arrow">
+    		<span class="aadl-toggle-arrow-top"></span>
+    		<span class="aadl-toggle-arrow-bottom"></span>
+    	</div>
+    </div>
+	
+
+	<div class="aadl-toggle-content">
+	    <div class="aadl-toggle-content-inner">
+	    	 Quisque nec pulvinar tortor. Phasellus consectetur efficitur ante non hendrerit. Cras bibendum arcu nec massa auctor, non dictum risus accumsan. Aenean placerat velit eu eleifend rhoncus. Pellentesque mattis venenatis hendrerit. Donec id erat vitae nunc ornare tristique. Integer in orci ac neque vestibulum cursus. Etiam auctor porttitor mi, pretium convallis diam cursus ut. Nam interdum tellus non nisi porttitor rutrum. Morbi vitae sollicitudin ipsum. In ac massa at nunc molestie luctus at eget velit. Nullam mollis elementum lectus, sed bibendum odio congue vitae.
+<br>
+<br>
+Proin velit mi, feugiat sed vulputate quis, venenatis id nisl. Integer scelerisque, nisi eu feugiat egestas, ipsum magna molestie arcu, at ultrices magna ipsum id leo. Aenean tempor mollis nisi id commodo. Suspendisse at neque gravida, aliquam purus a, semper metus. Duis blandit, erat quis pretium aliquam, velit mi rhoncus lectus, in gravida lacus metus non tellus. Integer in viverra massa. Donec nulla turpis, porta at ultricies ac, lacinia id mi. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Mauris tempor tristique eros, vitae congue enim convallis quis. Nam eget magna est. Sed consectetur quam id elementum dapibus. Fusce sagittis augue non velit tincidunt aliquet. 
+        </div>
+    </div>
+</div>
+
+<br>
+<hr>
+<br>
+
+<h2>Example using AADL theme style.</h2>
+
+
+<div class="aadl-toggle aadl-toggle-main-theme">
+
+	<input class="aadl-toggle-check" type="checkbox" tabindex="0" aria-label="toggle menu with space bar">
+
+    <div class="aadl-toggle-text">
+    	<span class="mobile-only">Show Menu</span>
+    	<span class="desktop-only">Menu</span>
+    	<div class="aadl-toggle-arrow mobile-only">
+    		<span class="aadl-toggle-arrow-top"></span>
+    		<span class="aadl-toggle-arrow-bottom"></span>
+    	</div>
+    </div>
+	
+
+	<div class="aadl-toggle-content no-desktop-toggle">
+	    <div class="aadl-toggle-content-inner">
+	       
+             <ul>
+             	<li>
+             		<ul>
+             			<li class="section-head">Account</li>
+             			<li><a href="adsf" >Preferences</a></li>
+             			<li><a href="">Checkouts</a></li>
+             			<li><a href="">Requests</a></li>
+             			<li><a href="">Bookings</a></li>
+             		</ul>
+             	</li>
+             	<li>
+             		<ul>
+             			<li class="section-head">My Contents</li>
+             			<li><a href="">Checkout History</a></li>
+             			<li><a href="">Lists</a></li>
+             			<li><a href="">News and Reviews</a></li>
+             			<li><a href="">Upcoming Events</a></li>
+             		</ul>
+             	</li>
+             </ul>
+
+        </div>
+    </div>
+</div>
+
+<br>
+<hr>
+<br>
+
+
+<h2>Basic example</h2>
+<span style="font-weight:700">Stays open on desktop.  Toggle enabled on Mobile</span>
+<br>
+<br>
+<div class="aadl-toggle">
+
+	<input class="aadl-toggle-check" type="checkbox" tabindex="0"  aria-label="toggle menu">
+    <div class="aadl-toggle-text">
+    	<span class="mobile-only">Show Menu</span>
+    	<span class="desktop-only">Menu</span>
+    	<div class="aadl-toggle-arrow mobile-only">
+    		<span class="aadl-toggle-arrow-top"></span>
+    		<span class="aadl-toggle-arrow-bottom"></span>
+    	</div>
+    </div>
+	
+
+	<div class="aadl-toggle-content no-desktop-toggle">
+	    <div class="aadl-toggle-content-inner">
+	        Nam sed interdum diam, at egestas mi. Vivamus varius enim massa, ac rhoncus ligula lacinia sed. Ut non nunc eget mi feugiat viverra. Aliquam lobortis sem mi. 
+            <br><br>
+            Etiam eu massa sed leo fringilla mollis vitae sollicitudin orci. In hac habitasse platea dictumst. Ut vel luctus est. Duis nisi lorem, vulputate eu ornare at, eleifend non arcu. 
+        </div>
+    </div>
+</div>
+
+<br>
+<br>
+<br>
+<br>
+
+
+
+
+</body>
+</html>

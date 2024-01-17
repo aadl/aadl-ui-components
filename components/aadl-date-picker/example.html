@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html>
+	<head>
+     
+		<style>
+
+			
+			
+            #someElementID .aadlui-date-picker{
+            	width:678px;
+            	width:300px;
+            	font-family:arial;
+            }
+
+
+            #example2 .aadlui-date-picker{
+                width:678px;
+                width:300px;
+                font-family:arial;
+            }
+
+
+             #example3 .aadlui-date-picker{
+                width:678px;
+                width:300px;
+                font-family:arial;
+            }
+
+             #example3 .aadlui-date-picker .aadlui-date-picker-legend{
+                display:none;
+             }
+
+            #example4 .aadlui-date-picker{
+                width:678px;
+                width:300px;
+                font-family:arial;
+            }
+            #example5 .aadlui-date-picker{
+                width:678px;
+                width:300px;
+                font-family:arial;
+            }
+
+
+            code, pre{
+                background:#eef2f9;
+            }
+
+
+           
+
+		</style>
+        <link rel="stylesheet" href="aadl-date-picker.css">
+	</head>
+	<body>
+
+
+        <h1>AADL Date Picker Component</h1>
+
+
+        <h3>Example 1</h3>
+        <p>Initalized with minimum settings for Date Picker</p>
+         <input id="begin-date-example4" name="first"/>
+         <br>
+         <div id="example4" style="display:inline-block"></div>
+         <script>
+             
+              if (typeof aadlDatePicker !== "undefined") {
+                  aadlDatePicker({
+                      target: "#example4",
+                      dateTargets: ["#begin-date-example4"],
+                  });
+              } else {
+                  document.addEventListener("aadlDatePicker-exists", function(){
+                      aadlDatePicker({
+                      target: "#example4",
+                      dateTargets: ["#begin-date-example4"],
+                  });
+                  });
+              }
+  
+        </script>
+
+
+        <h3>Example 2</h3>
+        <p>Pick a date range between 3 and 5 days.  <br>With custom error logging, and translations</p>
+
+        <span class="indy-error" id="indy-error" style="display:none;background:#ff6363;color:#ffffff;box-sizing:border-box;padding: 0.3em 1em;animation: horizontal-shaking 0.15s 2;"></span>
+
+        <input id="begin-date" name="first"/> - 
+        <input id="second-date" name="second"/>
+        <br>
+        <br>
+		<div id="someElementID" style="display:inline-block"></div>
+
+        <br>
+        <input id="some other field" name="third" placeholder="Some other field in our form" />
+		
+		
+		<script>
+            var myWidgetSettings = {
+                  name: "example1",
+                  target: "#someElementID",
+                  dateTargets: ["#begin-date", "#second-date"],
+                  selection:true,//toggle whether we want to run our click functions for selecting dates
+                  show:false,//toggle whether to actually display the widget,
+                  yearStart:1827,//for year selection its the earliest allowed year
+                  dateFormat:"MM/DD/YYYY",
+                  rules:{
+                  	disallowedRanges:[
+                  	    [{year:0, month: 0, day:0},{year:2023, month: 7, day:22}],
+                  	    [{year:2023, month: 8, day:12}, {year:2023, month: 8, day:14}]
+                  	], // RESTRICTED [{year:0, month: 0, day:0},{year:2026, month: 0, day:0}],[]
+                    maxRange:5,
+                    minRange:3,
+                    range:true,//whether to allow selection of a date range or single date only
+                    timezone: "America/New_York",
+                    maxSelections:2 //not sure there is ever a use case above two.
+                    
+
+
+                  },
+                  state:{
+                    viewMonths:[{year:2023, month:7}, {year:2023, month:8}],
+                    selections:[], // [{year:2023,month:4,day:7}]
+                    currentlySelecting: 0
+                  },
+
+                  translations:{ //we can add any text that appears in the widget as a key in this object and the value will be used instead.  This is best used for customizations or for adding a translations
+                    "AUG": "Août",
+                    "August": "Août",
+                    " is within a dissallowed range":"  is in a dissallowed range"
+                  }
+
+              };
+             
+              if (typeof aadlDatePicker !== "undefined") {
+                  aadlDatePicker(myWidgetSettings)
+              } else {
+                  document.addEventListener("aadlDatePicker-exists", function(){
+                      aadlDatePicker(myWidgetSettings)
+                  });
+              }
+
+             
+              document.addEventListener('aadlDatePicker-day-click',function(e){
+              	e = e || window.e;
+              	console.log(e)
+              	var attr = e.targetDay.getAttribute("data-aadlui-date");
+              	console.log("clicked day: " + attr);
+              });
+
+
+              
+              document.addEventListener('aadlDatePicker-before-render',function(e){
+                e = e || window.e;
+                if (e.detail.target == "#someElementID") {
+                    document.querySelector("#indy-error").innerHTML = "";
+                    document.querySelector("#indy-error").style.display = "none";
+                }
+              });
+
+              //report validation errors outside of the widget
+              document.addEventListener('aadlDatePicker-before-render-error',function(e){
+                e = e || window.e;
+                console.log("ERROR",e);
+                if (e.detail.target == "#someElementID") {
+                    document.querySelector("#indy-error").innerHTML = "Custom Error Logging: [ "+e.detail.errorMessage + " ]";
+                    document.querySelector("#indy-error").style.display = "block";
+                }
+              });
+		</script>
+        <style>
+            
+            #someElementID .aadlui-date-picker-error{
+                display:none;
+            }
+        </style>
+
+
+
+        <h3>Example 3</h3>
+        <p>Pick a single date</p>
+
+         <input id="example2-input-1" name="first"/>
+         <br>
+         <div id="example2" style="display:inline-block"></div>
+
+
+         <script>
+            var myWidgetSettings2 = {
+                  name: "example2",
+                  target: "#example2",
+                  dateTargets: ["#example2-input-1"],
+                  selection:true,//toggle whether we want to run our click functions for selecting dates
+                  show:false,//toggle whether to actually display the widget,
+                  yearStart:1827,//for year selection its the earliest allowed year
+                  dateFormat:"MM/DD/YYYY",
+                  rules:{
+                    disallowedRanges:[
+                        [{year:0, month: 0, day:0},{year:2023, month: 11, day:18}],
+                        [{year:2023, month: 11, day:24}, {year:2023, month: 11, day:25}]
+                    ], // RESTRICTED [{year:0, month: 0, day:0},{year:2026, month: 0, day:0}],[]
+                    maxRange:5,
+                    minRange:3,
+                    range:false,//whether to allow selection of a date range or single date only
+                    timezone: "America/New_York",
+                    maxSelections:1 
+
+
+                  },
+                  state:{
+                    viewMonths:[{year:2023, month:11}, {year:2024, month:0}],
+                    selections:[], // [{year:2023,month:4,day:7}]
+                    currentlySelecting: 0
+                  },
+
+                  
+
+              };
+             
+              if (typeof aadlDatePicker !== "undefined") {
+                  aadlDatePicker(myWidgetSettings2)
+              } else {
+                  document.addEventListener("aadlDatePicker-exists", function(){
+                      aadlDatePicker(myWidgetSettings2)
+                  });
+              }
+
+             
+              
+        </script>
+
+
+
+        <h3>Example 4</h3>
+        <p>Static events calander</p>
+         <div id="example3" style="display:inline-block"></div>
+         <script>
+            var myWidgetSettings3 = {
+                  name: "example3",
+                  target: "#example3",
+                  closeOnUnfocus:true, //this is so the widget stays visible always
+                  selection:false,//toggle whether we want to run our click functions for selecting dates
+                  show:true,//toggle whether to actually display the widget,
+                  yearStart:1827,//for year selection its the earliest allowed year
+                  dateFormat:"MM/DD/YYYY",
+                  closable:false,
+                  rules:{
+                    disallowedRanges:[
+                        [{year:0, month: 0, day:0},{year:2023, month: 11, day:18}],
+                        [{year:2023, month: 11, day:24}, {year:2023, month: 11, day:25}]
+                    ], // RESTRICTED [{year:0, month: 0, day:0},{year:2026, month: 0, day:0}],[]
+                    range:false,//whether to allow selection of a date range or single date only
+                    timezone: "America/New_York",
+                    maxSelections:0
+
+
+                  },
+                  state:{
+                    viewMonths:[{year:2023, month:11}],
+                    selections:[], // [{year:2023,month:4,day:7}]
+                    currentlySelecting: 0
+                  },
+
+                  
+
+              };
+
+
+             
+              if (typeof aadlDatePicker !== "undefined") {
+                  aadlDatePicker(myWidgetSettings3)
+              } else {
+                  document.addEventListener("aadlDatePicker-exists", function(){
+                      aadlDatePicker(myWidgetSettings3)
+                  });
+              }
+
+
+              document.addEventListener('aadlDatePicker-day-click',function(e){
+                e = e || window.e;
+                console.log(e);
+                if (e.detail.target == "#example3") {
+
+                    var attr = e.targetDay.getAttribute("data-aadlui-date");
+                    alert("clicked on calander day: " + attr);
+
+                }
+                
+              });
+                 
+              
+        </script>
+
+
+
+        <h3>Example 5</h3>
+        <p>Initializing date picker with async html</p>
+         <input id="begin-date-example5" name="first"/>
+         <br>
+         <div id="tmp-placeholder"></div>
+         <script>
+
+              var asyncDatePicker = {
+                      target: "#example5",
+                      dateTargets: ["#begin-date-example5"],
+                };
+             
+              if (typeof aadlDatePicker !== "undefined") {
+                  aadlDatePicker(asyncDatePicker);
+              } else {
+                  document.addEventListener("aadlDatePicker-exists", function(){
+                      aadlDatePicker(asyncDatePicker);
+                  });
+              }
+
+              setTimeout(function(){//simulate async html
+
+                document.querySelector("#tmp-placeholder").innerHTML = `<div id="example5" style="display:inline-block"></div>`;
+                
+
+                //in many frameworks, this would be called in an after render event.
+                for (index in window["aadlDatePicker_repo"]){
+                    if (window["aadlDatePicker_repo"][index].getTarget() == "#example5"){
+                        window["aadlDatePicker_repo"][index].__getRender();
+                    }
+                }
+
+              },500);
+  
+        </script>
+
+
+
+        <br><br>
+        <h2>Custom Events</h2>
+        <p>
+            There are several custom events for hooking into the date picker
+        </p>
+
+        <ul>
+            <li>
+                <code>aadlDatePicker-day-click</code> - dispatched when a day is clicked/selected on the calander.
+            </li>
+            <li>
+                <code>aadlDatePicker-before-render</code> - dispatched before the compoenent renders after each action.
+            </li>
+            <li>
+                <code>aadlDatePicker-after-render</code> - dispatched after the compoenent renders after each action.
+            </li>
+            <li>
+                <code>aadlDatePicker-before-render-error</code> - dispatched before the widget renders when rendering with a validation error.
+            </li>
+
+        </ul>
+        
+
+        <h2>Custom Error Logging</h2>
+        <p>
+            There is a custom event fired before a validation error is rendered <code>aadlDatePicker-before-render-error</code>. If your application has a specific presentation for errors, this can be used to capture the error.  Example:
+                <pre>
+document.addEventListener('aadlDatePicker-before-render-error',function(e){
+    e = e || window.e;
+    console.log("ERROR",e);
+    if (e.detail.target == "#someElementID") {
+        document.querySelector("#indy-error").innerHTML = e.detail.errorMessage;
+        document.querySelector("#indy-error").style.display = "block";
+    }
+});
+</pre>
+        </p>
+
+
+        
+        <h2>Errors</h2>
+
+        <ul>
+            <li>Range of 3 is not allowed</li>
+            <li>First date in range not selected</li>
+            <li>Date range too wide</li>
+            <li>Date range not wide enough</li>
+            <li>The second date cannot be before or the same as the first date</li>
+            <li>Selecting multiple dates is not allowed</li>
+            <li>Date Selection <code>n</code> is not a real date</li>
+            <li><code>date</code> is within a dissallowed range</li>
+            <li>Invalid date within selected range</li>
+        </ul>
+
+
+
+        <br><br>
+        <h2>Translations</h2>
+
+        <p>
+            You can translate any of the rendered text in the component.  This is passed as an object to the config:
+            <pre>
+translations:{ 
+    "AUG": "Août",
+    "August": "Août",
+    " is within a dissallowed range":"  is in a dissallowed range"
+}</pre>
+
+        This can be used both for language translations as well as text customizations without editing the source.
+
+        </p>
+
+
+    <script src="./aadl-date-picker.js"></script>
+	</body>
+
+</html>

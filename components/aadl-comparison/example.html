@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+	
+	<head>
+		
+      <style>
+      .container{
+      	   width:60%;
+           max-width:678px;
+           margin:3em;
+           margin-bottom:4em;
+      }
+
+      code{
+        background:#f3f4f9;
+        padding:0.5em;
+      }
+      pre{
+        background:#f3f4f9;
+        padding:0.5em;
+      }
+      </style>
+
+
+      <link rel="stylesheet" href="aadl-comparison.css">
+
+	</head>
+
+	<body>
+
+    <h1>AADL image Comparison Component</h1>
+
+    <div class="container">
+    <h3>Example 1</h3>
+    <p>
+      predefined HTML, JS only hydrates for functionaility
+    </p>
+    <!-- example 1 - uses manually built html -->
+		<div class="aadl-comparison ratio-1-8" id="test-compare">
+
+      <img src="example-img-2.jpg" title="Malletts Creek Exterior, 2006" />
+	       
+			<div class="addl-comparison-compare-top">
+				<img src="example-img-1.jpg" title="Malletts Creek Branch: Front entrance, 2004" />
+			</div>
+			<input type="range" min="0" max="100" value="50" class="aadl-comparison-range">
+            <div class="slider-mask"></div>
+    </div>
+
+      </div>
+
+
+
+      <!-- example 2 - configure images inline -->
+      <div class="container">
+          <h3>Example 2</h3>
+          <p>
+            images configured inline with data attributes
+            <pre>
+data-aadl-comparison-1-src="example-img-1.jpg"
+data-aadl-comparison-1-alt="Malletts Creek Branch: Front entrance, 2004"
+data-aadl-comparison-1-title="Malletts Creek Branch: Front entrance, 2004"
+data-aadl-comparison-2-src="example-img-2.jpg"
+data-aadl-comparison-2-alt="Malletts Creek Exterior, 2006"
+data-aadl-comparison-2-title="Malletts Creek Exterior, 2006"
+data-aadl-comparison-lazy="true"</pre>
+          </p>
+          <div class="aadl-comparison ratio-1-8" id="test-compare-2" data-aadl-comparison-1-src="example-img-1.jpg"  data-aadl-comparison-1-title="Malletts Creek Branch: Front entrance, 2004" data-aadl-comparison-1-alt="Malletts Creek Branch: Front entrance, 2004" data-aadl-comparison-2-src="example-img-2.jpg" data-aadl-comparison-2-title="Malletts Creek Exterior, 2006" data-aadl-comparison-2-alt="Malletts Creek Exterior, 2006" data-aadl-comparison-lazy="true" ></div>
+      </div>
+
+
+      <!-- example 3 - configure and initialize widget via JS -->
+      <div class="container">
+          <h3>Example 3</h3>
+          <p>
+            images configured by JS with conf object <pre>
+        {
+          target:"#test-compare-3",
+          ratio:"ratio-1-8",
+          lazyLoad:true,
+          images:[
+            {
+              src:"example-img-1.jpg",
+              title:"Malletts Creek Branch: Front entrance, 2004",
+              alt:"Malletts Creek Branch: Front entrance, 2004"
+            },
+            {
+              src:"example-img-2.jpg",
+              title:"Malletts Creek Exterior, 2006",
+              alt:"Malletts Creek Exterior, 2006"
+            }
+          ],
+        }</pre>
+          </p>
+          <div class="aadl-comparison-manual-conf" id="test-compare-3"></div>
+      </div>
+
+
+		
+
+
+	<script>
+        
+
+        //import { "comparisonUI" as comparisonUI } from "./comparison-ui.js";
+
+
+        /*
+        * For: example 3 
+        * initilize an indiviual widget with cusotm config
+        */
+
+        var conf = {
+          target:"#test-compare-3",
+          ratio:"ratio-1-8",
+          lazyLoad:true,
+          images:[
+            {
+              src:"example-img-1.jpg",
+              title:"Malletts Creek Branch: Front entrance, 2004",
+              alt:"Malletts Creek Branch: Front entrance, 2004"
+            },
+            {
+              src:"example-img-2.jpg",
+              title:"Malletts Creek Exterior, 2006",
+              alt:"Malletts Creek Exterior, 2006"
+            }
+          ],
+        };
+        
+        //we establish a callback to wait for the function to be available so we can load our initila scrip async
+     
+        
+          if (typeof window.aadlComparison == "function") {
+            window.aadlComparison(conf);
+          } else {
+
+            document.addEventListener("aadlComparison-exists", function(e){
+              e = e || window.e;
+              window.aadlComparison(conf);
+            });
+          }
+        
+
+        
+        
+
+	</script>
+    <script src="./aadl-comparison.js"></script>
+	</body>
+</html>

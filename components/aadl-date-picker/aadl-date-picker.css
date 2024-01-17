@@ -1,0 +1,237 @@
+/*
+* AADL Date Picker Component
+
+Copyright 2024 Ann Arbor District Library
+
+This file is part of AADL UI Components.
+
+AADL UI Components is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+AADL UI Components is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with AADL UI Components. If not, see <https://www.gnu.org/licenses/>. 
+*/
+
+@keyframes horizontal-shaking {
+             0% { transform: translateX(0) }
+             25% { transform: translateX(5px) }
+             50% { transform: translateX(-5px) }
+             75% { transform: translateX(5px) }
+             100% { transform: translateX(0) }
+            }
+
+            @keyframes horizontal-slidein {
+             0% { transform: translateX(-1em) }
+             
+             100% { transform: translateX(0) }
+            }
+
+
+            .aadlui-date-picker{
+                width:100%;
+                box-sizing:border-box;
+                padding:0.2em;
+                border:1px solid #e3e3e3;
+                border-radius:0.2em;
+                box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+                container-type: inline-size;
+                
+            }
+
+            .aadlui-date-picker .aadlui-date-picker-error{
+              background:#ff6363;
+              color:#ffffff;
+              box-sizing:border-box;
+              padding: 0.3em 1em;
+              animation: horizontal-shaking 0.15s 2;
+            }
+
+            .aadlui-date-picker .aadlui-date-navigation{
+              display:flex;
+              justify-content:space-between;
+              align-items:center;
+              box-sizing:border-box;
+              border-bottom:1px solid #e3e3e3;
+                padding:0.5em 0 1em 0;
+                margin-bottom:0.5em;
+
+            }
+
+            .aadlui-date-picker .aadlui-date-navigation div{
+              cursor:pointer;
+
+            }
+
+            .aadlui-date-picker .aadlui-date-navigation select{
+                padding:0.5em;
+                border-radius:0.2em;
+                border:0;
+                box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+
+            }
+
+            .aadlui-date-picker .aadlui-date-navigation .aadlui-current-next, .aadlui-date-picker .aadlui-date-navigation .aadlui-current-prev{
+              font-size:1.5em;
+              font-weight:bold;
+              font-family:arial;
+              color:#777777;
+                border:none;
+              padding:0 0.2em;
+                cursor:pointer;
+
+            }
+
+            .aadlui-date-picker .aadlui-date-navigation .aadlui-current-next, .aadlui-date-picker .aadlui-date-navigation .aadlui-current-prev:hover{
+              color:#555555;
+
+            }
+
+            .aadlui-close-widget{
+
+                display:none;
+
+            }
+            
+            .aadlui-date-picker .aadlui-months{
+              animation: horizontal-slidein 0.15s 1;
+            }
+
+
+            .aadlui-date-picker .aadlui-month{
+              display:inline-block;
+              width:100%;
+              
+            }
+
+            .aadlui-date-picker .aadlui-month h2{
+                color:#333333;
+                font-size:1em;
+            }
+
+            .aadlui-date-picker .weekday-top{
+                display:flex;
+                width:100%;
+            }
+
+            .aadlui-date-picker .weekday-top span{
+              width:calc((100%/7) - 0.4em);
+              margin-left:0.2em;
+                margin-right:0.2em;
+                margin-bottom:0.2em;
+                text-align:center;
+                font-size: 0.8em;
+                font-weight: 700;
+                color: #222;
+            }
+
+
+            .aadlui-date-picker .aadlui-days{
+                width:100%;
+            }
+
+            .aadlui-date-picker .aadlui-days .aadlui-day{
+                width:calc((100%/7) - 0.4em);
+                margin-left:0.2em;
+                margin-right:0.2em;
+                margin-bottom:0.2em;
+                margin-top:0.2em;
+                /*border:1px solid #828282;*/
+                border: none;
+                border-radius:0.1em;
+                padding:0.2em;
+                box-sizing:border-box;
+                aspect-ratio:1;
+                float:left;
+                font-family:arial;
+                color:#333333;
+                font-size:0.7em;
+                transition: all 0.2s ease-out;
+
+
+            }
+            .aadlui-date-picker .aadlui-days .aadlui-day:hover{
+              transform: scale(1.07);
+              cursor:pointer;
+              box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            }
+      
+
+            .aadlui-date-picker .not-available {
+            background-color: #cacaca;
+                color: #000;
+      }
+      .aadlui-date-picker .available{
+                background-color: #f2f2f2;
+            color:#333333;
+      }
+
+      .aadlui-date-picker .selected{
+        background-color: #06c;
+        color:#ffffff !important;
+      }
+
+      .aadlui-date-picker-legend{
+                display:flex;
+                justify-content:space-between;
+                flex-direction:row;
+                
+      }
+
+
+
+
+      .aadlui-date-picker-legend .legend-entry{
+        font-size:0.8em;
+        display:flex;
+        align-items:center;
+      }
+
+      
+
+      .aadlui-date-picker-legend .legend-square{
+               width:1em;
+               height:1em;
+               margin-right:0.2em;
+      }
+
+
+            .aadlui-input-mask{
+
+            }
+            .aadlui-input-mask input{
+              width:4ch;
+              text-align:center;
+            }
+
+
+            .aadlui-input-mask input.input-mask-year{
+              width:5ch;
+            }
+
+
+
+            /*
+            *  conditionals
+            */
+
+            @container (max-width: 300px) {
+
+          .aadlui-date-picker-legend {
+            flex-direction:column;
+          }
+
+          .aadlui-date-picker .weekday-top span{
+                    font-size:0.7em;
+          }
+      }
+
+
+            /*disable animations... used when rendering date updates instead of view updates*/
+            .notransition {
+              -webkit-transition: none !important;
+              -moz-transition: none !important;
+              -o-transition: none !important;
+              transition: none !important;
+              animation:none !important;
+            }
+            

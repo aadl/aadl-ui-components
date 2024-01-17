@@ -3,7 +3,6 @@
 *
 Copyright 2024 Ann Arbor District Library
 
-Copyright 2024 Ann Arbor District Library
 
 This file is part of AADL UI Components.
 

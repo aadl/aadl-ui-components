@@ -1,4 +1,4 @@
-# AADL UI compoenents
+# AADL UI components
 
 A collection of UI components.
 

@@ -11,6 +11,8 @@ A collection of UI components.
 
 [Pure CSS Dropdown Toggle](components/aadl-css-toggle/README.md)
 
+[Modal](components/aadl-modal/README.md)
+
 
 ## Purpose
 

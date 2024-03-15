@@ -1,0 +1,154 @@
+/*
+* AADL Modal Component
+
+Copyright 2024 Ann Arbor District Library
+
+This file is part of AADL UI Components.
+
+AADL UI Components is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+AADL UI Components is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with AADL UI Components. If not, see <https://www.gnu.org/licenses/>. 
+*/
+
+
+
+@keyframes horizontal-slidein {
+  0% { transform: translateY(1em) }         
+  100% { transform: translateXY(0) }
+}
+
+.aadl-modal-bg{
+    background: #0000006e;
+    width:100%;
+    height:100vh;
+    position:fixed;
+    top:0;
+    left:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.aadl-modal-content-outer{
+  padding: 0.3em;
+  background: #ffffff;
+  min-height: 21em;
+  max-width:calc(100% - 2em);
+  max-height:100vh;
+  overflow-Y:scroll;
+  margin:0 1em;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  animation-name: horizontal-slidein;
+  animation-iteration-count: 1;
+  animation-duration: 0.2s;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  transition: all 0.2s ease-in;
+}
+
+.aadl-modal-sm{
+  width:675px;
+}
+
+.aadl-modal-md{
+  width:980px;
+}
+
+.aadl-modal-lg{
+  width:1080px;
+}
+
+.aadl-modal-xl{
+  width:1100px;
+}
+
+.aadl-modal-2xl{
+  width:1200px;
+}
+
+
+.aadl-modal-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin:0em 0 1em 0;
+}
+
+.aadl-modal-content-close{
+  line-height: 0;
+  font-weight: 500;
+  font-size: 1.5em;
+  background: #7e86a8;
+  border-radius: 50%;
+  height: 1.2em;
+  width: 1.2em;
+  text-align: center;
+  color: #fff;
+  transition: all 0.1s ease-in;
+  border: none;
+  text-decoration: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  align-self:flex-start;
+}
+
+.aadl-modal-content-close:hover{
+  background: #656d8c;
+  cursor:pointer;
+}
+.aadl-modal-content-close:active{
+  background: #676f8e;
+  cursor:pointer;
+}
+
+
+@keyframes aadl-loader-spin{
+  0% { transform: rotate(0deg) }         
+  100% { transform: rotate(360deg) }
+}
+
+.aadl-loader-wrap{
+  display:100%;
+  min-width:25vw;
+  height:50vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+.aadl-modal-loader{
+  position: relative;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  background: transparent;
+  box-sizing: border-box;
+  width: 3em;
+  height: 3em;
+  animation-name: aadl-loader-spin;
+  animation-iteration-count: infinite;
+  animation-duration: 1s;
+}
+.aadl-modal-loader-inner{
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  box-sizing: border-box;
+  background: transparent;
+  border: 10px solid #7885a4;
+  width: 100%;
+  height: 100%;
+  clip-path: polygon(0 0, 50% 0, 50% 50%, 0 50%);
+}
+
+.error-example .aadl-modal-content-inner{
+    font-family:monospace;
+    font-size:1.2em;
+    text-align:center;
+}
+
+
+ 

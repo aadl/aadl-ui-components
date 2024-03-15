@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+	<head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="aadl-modal.css">
+        <script>
+            window.aadlModalGlobals = {
+                title:"Some title"
+            }
+        </script>
+	</head>
+	<body>
+
+<h1>AADL Modal Component</h1>
+
+<h2>Example 1</h2>
+<button id="mytestModal" class="aadl-modal">Open me</button>
+<script>
+if (typeof window.aadlModalContext == "undefined") {
+    window.aadlModalContext = {};
+}
+window.aadlModalContext["#mytestModal"] = {
+    content:`Some content`,
+    modalSize: "aadl-modal-md",
+    title:"Some Title Text",
+    templates:{
+                "modalBase":`<div style="display:none" id="{{ id }}" class="aadl-modal-bg">
+                    <div class="aadl-modal-content-outer {{ modalSize }}">
+                      <div class="aadl-modal-header">
+                          <h1 class="aadl-modal-title">{{ title }}</h1>
+                          <button class="aadl-modal-content-close">{{ closeText }}</button>
+                      </div>
+                      
+                      <div class="aadl-modal-content-inner">
+                          {{ content }}
+                      </div>
+                    </div>
+                </div>`,
+            }
+}
+</script>
+
+
+<br><br>
+<h2>Example 2</h2>
+Load content on modal init from U.S. Geological Survey: <button id="mytestModalLazy2" class="aadl-modal">View</button>
+<script>
+if (typeof window.aadlModalContext == "undefined") {
+    window.aadlModalContext = {};
+}
+window.aadlModalContext["#mytestModalLazy2"] = {
+    lazyLoad:false,
+    title:"Recent Earthquakes",
+    content_url:"https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime="+new Date().getFullYear()+"-"+(new Date().getMonth()).toString().padStart(2,"0")+"-"+(new Date().getDate()-2).toString().padStart(2,"0")+"&endtime="+new Date().getFullYear()+"-"+(new Date().getMonth()).toString().padStart(2,"0")+"-"+(new Date().getDate()).toString().padStart(2,"0")+"&minmagnitude=5",
+    contentMiddleware:function(data){
+
+        var resp = {};
+        resp.content = "<ul>";
+
+        for(ev in data['features']){
+            resp.content += `<li>`+data['features'][ev]["properties"].title+`</li>`;
+        }
+        resp.content += "</ul>";
+
+        return resp;
+    
+    },
+    lazy:true
+}
+</script>
+
+
+
+<br><br>
+<h2>Example 3</h2>Load content on modal open from NASA near earth objects
+
+<button id="mytestModalLazy3" class="aadl-modal">View</button>
+<script>
+if (typeof window.aadlModalContext == "undefined") {
+    window.aadlModalContext = {};
+}
+window.aadlModalContext["#mytestModalLazy3"] = {
+    title:"<h2>Near Earth Objects</h2>",
+    modalSize: "aadl-modal-md",
+    content_url:"https://api.nasa.gov/neo/rest/v1/neo/browse?api_key=DEMO_KEY",
+    contentMiddleware:function(data){
+
+        var resp = {};
+        resp.content = "<ul>";
+
+        for (key in data.near_earth_objects) {
+
+            resp.content += `<li>`+data.near_earth_objects[key].name+`</li>`;
+
+        }
+        resp.content += "</ul>";
+
+        return resp;
+    
+    },
+}
+</script>
+
+
+
+<br><br>
+<h2>Example 4</h2>Error loading dynamic content
+
+<button id="mytestModalLazy4" class="aadl-modal">I can handle errors!</button>
+<script>
+if (typeof window.aadlModalContext == "undefined") {
+    window.aadlModalContext = {};
+}
+window.aadlModalContext["#mytestModalLazy4"] = {
+    title:"This modal will return an error",
+    customModalClass:"error-example",
+    content_url:"https://aadl.org/ireallyhopethis404s",
+    content_addtional_parameters:{
+        "mode":"cors"
+    },
+    errorMessage: `<br><br>Oh no!<br><br>There was an error loading the modal content.<br><br>Please try again<br><br><button class="custom-close-modal">Okay I get it, jeez</button>`,
+
+    lazyLoad:true
+}
+
+//setting listeners for a button based on the error message
+document.addEventListener("aadl-modal-init-after", function(e){
+
+    if (e.detail.target == "#mytestModalLazy4") {
+        let modalComponent = e.detail.modal;
+        console.log(modalComponent.getModalElement());
+        modalComponent.getModalElement().querySelector(".custom-close-modal").addEventListener('click', function(){
+            modalComponent.close();
+        });
+
+    }
+
+});
+</script>
+
+
+
+
+<br><br>
+<h2>Example 5</h2>content loaded with url params
+
+<button id="mytestmodalurlparams" class="aadl-modal" data-aadl-modal-params="2024|4">View magnitude 4</button>
+<script>
+if (typeof window.aadlModalContext == "undefined") {
+    window.aadlModalContext = {};
+}
+window.aadlModalContext["#mytestmodalurlparams"] = {
+    title:"Recent Earthquakes",
+    content_url:"https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime={{ 0 }}-"+(new Date().getMonth()).toString().padStart(2,"0")+"-"+(new Date().getDate()-2).toString().padStart(2,"0")+"&endtime={{ 0 }}-"+(new Date().getMonth()).toString().padStart(2,"0")+"-"+(new Date().getDate()).toString().padStart(2,"0")+"&minmagnitude={{ 1 }}",
+    contentMiddleware:function(data){
+
+        var resp = {};
+        resp.content = "<ul>";
+
+        for(ev in data['features']){
+            resp.content += `<li>`+data['features'][ev]["properties"].title+`</li>`;
+        }
+        resp.content += "</ul>";
+
+        return resp;
+    
+    },
+    lazy:true
+}
+</script>
+
+
+
+    <script src="./aadl-modal.js"></script>
+	</body>
+
+</html>

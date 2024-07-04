@@ -1,0 +1,90 @@
+/*
+* AADL Form Creator Component
+
+Copyright 2024 Ann Arbor District Library
+
+This file is part of AADL UI Components.
+
+AADL UI Components is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+AADL UI Components is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with AADL UI Components. If not, see <https://www.gnu.org/licenses/>. 
+*/
+
+.aadl-fc {
+  font-family: arial;
+}
+
+.aadl-fc-header {
+  width: 100%;
+  margin-bottom: 1em;
+  border-bottom: 2px solid #e3e3e3;
+  display: flex;
+  justify-content: space-between;
+}
+
+.aadl-fc-header h2 {
+  border: 0;
+  padding: 0 0;
+  margin: 0.5em 0;
+  align-self: center;
+}
+
+.aadl-fc button {
+  padding: 0.5em;
+  background: #fff;
+  color: #181818;
+  margin-bottom: 0.5em;
+  border: 1px solid #b1b1b1;
+  border-radius: 0.2em;
+  align-self: center;
+}
+
+
+.aadl-fc button:hover {
+  background: #dfe2ec;
+  cursor: pointer;
+}
+
+.aadl-fc-field-wrapper {
+  margin-bottom: 1em;
+  background: #f9f9f9;
+
+}
+
+.aadl-fc-field {
+
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.3em;
+  padding: 0.3em;
+  border-bottom: 1px solid #e3e3e3;
+
+}
+
+.aadl-fc-id {
+  font-size: 0.8em;
+  color: #7b7b7b;
+  font-family: Monospace;
+  padding: 0.5em;
+  display: block;
+}
+
+.custom-field-optons-option {
+  margin-left: 1em;
+  margin-bottom: 0.5em;
+  background: #f0f0f0;
+  border-left: 2px solid #c4c4c4;
+  padding-left: 0.3em;
+  margin-top: 0.5em;
+}
+
+.option-counter {
+  font-size: 0.8em;
+  color: #7b7b7b;
+  font-family: Monospace;
+  padding: 0.5em;
+  display: block;
+
+}

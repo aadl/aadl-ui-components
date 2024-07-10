@@ -7,11 +7,17 @@
 <textarea name="custom-fields"></textarea>
 <div id="custom-fields" style="width:375px"></div>
 
-
+<br><br>
 <h2>Second form creator instance</h2>
 
 <textarea name="form-creator-2"></textarea>
 <div class="aadl-fc-wrap" id="form-creator-2" data-aggregate-field="form-creator-2" data-init-key="fcData2"></div>
+
+<br><br>
+<h2>Third form creator instance</h2>
+<p>Initialization data pulled from textarea value</p>
+<textarea name="form-creator-3">{"fields":{"fc-0":{"machine_name":"test-1","label":"Test 1","description":"this field was initialized from a textarea","type":"text","required":false,"weight":100,"meta":{"character_limit":12,"regex_pattern":"^[0-z \\-\\_]+$"}}}}</textarea>
+<div class="aadl-fc-wrap" id="form-creator-3" data-aggregate-field="form-creator-3"></div>
 
 <script src="form-creator.js"></script>
 <script>

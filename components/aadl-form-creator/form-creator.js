@@ -31,16 +31,24 @@ You should have received a copy of the GNU General Public License along with AAD
 
 		init:function(s, data = null){
 			let _this = this;
-			if (data !== null) {
-                _this.data = data;
-			}
-			for(key in s){
-				_this.s[key] = s[key];
-			}
+            for(key in s){
+                _this.s[key] = s[key];
+            }
 
             if (typeof _this.s.aggregate_field == "undefined") {
               console.log("No Aggregate field defined for form creator");
               return _this;
+            }
+
+			if (data !== null) {
+                _this.data = data;
+			} else if (data == null) {
+                tx = document.querySelector("textarea[name='"+_this.s.aggregate_field+"']");
+                if (_this.isJsonString(tx.value)) {
+                    _this.data = JSON.parse(tx.defaultValue);
+                } else {
+                    _this.data = {fields:{}};
+                }
             }
 
             _this.FIELD_PREFIX =  _this.FIELD_PREFIX + _this.s.aggregate_field + "-";//we prefix our prefix with the aggregate field name to ensure scoping for each instance of form-creator
@@ -592,6 +600,15 @@ You should have received a copy of the GNU General Public License along with AAD
         	}
         },
 
+        isJsonString:function(str) {
+          try {
+            JSON.parse(str);
+          } catch (e) {
+            return false;
+          }
+            return true;
+        }
+
 
 
 
@@ -608,11 +625,13 @@ You should have received a copy of the GNU General Public License along with AAD
             aggregate_field:el.getAttribute("data-aggregate-field")
         };
 
-        var data = {fields:{}};
+        var data = null;
 
         if (typeof window[el.getAttribute("data-init-key")] !== "undefined") {
           data = window[el.getAttribute("data-init-key")]
         }
+
+        console.log(conf);
 
         window.formCreator(conf,data);
 

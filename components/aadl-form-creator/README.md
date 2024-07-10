@@ -112,9 +112,7 @@ Creates a form for creating form fields and saves the data to an existing form f
     }
 ```
 
-### Inline HTML intialization
-
-
+### Partial Inline HTML intialization
 
 ```
 <textarea name="form-creator-2"></textarea>
@@ -139,6 +137,14 @@ window.fcData2 = {fields:{
             }
        },
     }}
+```
+
+
+### Inline HTML intialization
+
+```
+<textarea name="form-creator-3">{"fields":{"fc-0":{"machine_name":"test-1","label":"Test 1","description":"this field was initialized from a textarea","type":"text","required":false,"weight":100,"meta":{"character_limit":12,"regex_pattern":"^[0-z \\-\\_]+$"}}}}</textarea>
+<div class="aadl-fc-wrap" id="form-creator-3" data-aggregate-field="form-creator-3"></div>
 ```
 
 

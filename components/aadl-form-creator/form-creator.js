@@ -304,6 +304,7 @@ You should have received a copy of the GNU General Public License along with AAD
         		if (typeof _this.data.fields[id].meta !== "undefined") {
                 	if (typeof _this.data.fields[id].meta.options !== "undefined") {
                       for (var i = 0;i<_this.data.fields[id].meta.options.length;i++){
+                            
                             _this.data.fields[id].meta.options[i].value = document.querySelector("input[name='"+_this.FIELD_PREFIX+id+"-options-"+i+"-value']").value;
                             _this.data.fields[id].meta.options[i].label = document.querySelector("input[name='"+_this.FIELD_PREFIX+id+"-options-"+i+"-label']").value;
                       	    _this.data.fields[id].meta.options[i].weight = parseInt(document.querySelector("input[name='"+_this.FIELD_PREFIX+id+"-options-"+i+"-weight']").value);
@@ -315,17 +316,21 @@ You should have received a copy of the GNU General Public License along with AAD
         	}
 
         	if (_this.data.fields[id].type == "file") {
+ 
+                value = Array.from(document.querySelector("select[name='"+_this.FIELD_PREFIX+id+"-file-types']")).filter(function (option) {
+                    return option.selected;
+                }).map(function (option) {
+                    return option.value;
+                });
 
         		_this.data.fields[id].meta.file_size = parseInt(document.querySelector("input[name='"+_this.FIELD_PREFIX+id+"-file-size']").value);
-        		_this.data.fields[id].meta.file_types = document.querySelector("select[name='"+_this.FIELD_PREFIX+id+"-file-types']").value;
-
+        		_this.data.fields[id].meta.file_types = value;
 
         	}
 
         	if (_this.data.fields[id].type == "text" || _this.data.fields[id].type == "textarea") {
                 _this.data.fields[id].meta.regex_pattern = document.querySelector("input[name='"+_this.FIELD_PREFIX+id+"-regex-pattern']").value;
                 _this.data.fields[id].meta.character_limit = parseInt(document.querySelector("input[name='"+_this.FIELD_PREFIX+id+"-character-limit']").value);
-
         	}
             
             //this must be done last to prevent tripping up  when changing types

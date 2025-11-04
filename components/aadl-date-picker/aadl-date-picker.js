@@ -244,7 +244,8 @@ You should have received a copy of the GNU General Public License along with AAD
         },
 
         setSelectionIndex:function(index){
-
+          var _this = this;
+          
           _this.s.state.currentlySelecting++;
           return _this.s.state.currentlySelecting;
 

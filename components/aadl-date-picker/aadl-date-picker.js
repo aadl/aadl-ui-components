@@ -245,7 +245,7 @@ You should have received a copy of the GNU General Public License along with AAD
 
         setSelectionIndex:function(index){
           var _this = this;
-          
+
           _this.s.state.currentlySelecting++;
           return _this.s.state.currentlySelecting;
 
@@ -279,10 +279,21 @@ You should have received a copy of the GNU General Public License along with AAD
 
           if (!clonedState.selections[index]) {
               _this.debug("deleting");
-             
               clonedState.selections.splice(index, 1);
           }
-
+          
+          // quality of life feature to reset state when selecting ranges
+          if (_this.s.rules.range && _this.s.state.currentlySelecting > 0 && _this.s.state.selections.length > 1) {
+              clonedState.selections[0] = clonedState.selections[1];
+              clonedState.selections[1] = false;
+              _this.s.state.currentlySelecting = 0;
+              if (!clonedState.selections[index]) {
+                _this.debug("deleting");
+                clonedState.selections.splice(index, 1);
+              }
+              index = 0;
+          }
+          
           if (_this.stateValidation.validate(clonedState)) {
             
             //do updates
@@ -292,11 +303,11 @@ You should have received a copy of the GNU General Public License along with AAD
            
             if (_this.s.state.currentlySelecting < _this.s.rules.maxSelections-1) {
               _this.s.state.currentlySelecting++;//normally we'd use the API, but in this scenario its faster to increment.
-            } 
+            }
             
             _this.api.__getRender(false,false);
 
-
+            console.log(_this.s.state, "state");
             
             return true;
           } else {
@@ -339,6 +350,7 @@ You should have received a copy of the GNU General Public License along with AAD
       stateValidation:{
         
         lastValidationError:"",
+        lastValidationCode:"",
 
         clone:function(){//we'll make changes to a clone for validation before updating the actual state.
            var _this = this;
@@ -361,6 +373,25 @@ You should have received a copy of the GNU General Public License along with AAD
               }
 
               return true;
+        },
+        
+        // sometimes we want to just start over selection
+        fillAsStartIfErrorCode:function(newState, code){
+          var _this = this;
+          
+          _this.stateValidation.validate(newState);
+
+          if (_this.stateValidation.lastValidationCode == code && _this.s.rules.range) {
+
+            newState.selections[0] = newState.selections[1];
+            newState.selections[1] = false;
+            _this.api.setSelectionIndex(1);
+
+            return newState;
+          }
+
+          return newState;
+
         },
 
         validate:function(newState){
@@ -391,6 +422,7 @@ You should have received a copy of the GNU General Public License along with AAD
 
               if (diffDays > _this.s.rules.maxRange-1 && _this.s.rules.maxRange !== -1) {
                   _this.stateValidation.lastValidationError = "Date range too wide";
+                  _this.stateValidation.lastValidationCode = "too_wide";
                   return false;
               }
 
@@ -402,6 +434,7 @@ You should have received a copy of the GNU General Public License along with AAD
               if (date1.getTime() >= date2.getTime()) {
 
                   _this.stateValidation.lastValidationError = "The second date cannot be before or the same as the first date";
+                  _this.stateValidation.lastValidationCode = "second_greater_first";
                   return false;
 
               }

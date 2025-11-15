@@ -16,7 +16,7 @@ You should have received a copy of the GNU General Public License along with AAD
 */
 (function(){
 
-	window.aadlModal = function(s){
+	window.aadlModal = async function(s){
 
 		var app = {
 
@@ -332,7 +332,7 @@ You should have received a copy of the GNU General Public License along with AAD
 
 
 		};
-		app.init(s);
+		return await app.init(s);
 
 	};
 

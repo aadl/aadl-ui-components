@@ -14,12 +14,12 @@ You should have received a copy of the GNU General Public License along with AAD
 */
 
 (function(){
-	const widget_name = "aadlDatePicker";
-	window[widget_name+"_repo"] = [];
-	window[widget_name] = function(s){
-		var app = {
+  const widget_name = "aadlDatePicker";
+  window[widget_name+"_repo"] = [];
+  window[widget_name] = function(s){
+    var app = {
 
-			s:{
+      s:{
         widget_name: widget_name,
         dateTargets:[],
         show:false,//hide widget to start by default
@@ -46,12 +46,12 @@ You should have received a copy of the GNU General Public License along with AAD
         },
       },
 
-			init:function(s){
+      init:function(s){
 
-				let _this = this;
+        let _this = this;
         //var _self = this;
         var hasViewMonths = false;
-				for(var key in s){
+        for(var key in s){
           if (key == "rules") {
             for (var ruleKey in s[key]) {
                 _this.s[key][ruleKey] = s[key][ruleKey];
@@ -73,8 +73,8 @@ You should have received a copy of the GNU General Public License along with AAD
           }else {
               _this.s[key] = s[key];
           }
-					
-				}
+          
+        }
 
         //get current time for defined timezone
         _this.s.now = _this.convertTZ(new Date(), _this.s.rules.timezone);
@@ -111,9 +111,9 @@ You should have received a copy of the GNU General Public License along with AAD
           }
                 
           // we'll return this instance as well in case we're directly implementing it and need to work with it
-				  return window[widget_name+"_repo"][index].api;
+          return window[widget_name+"_repo"][index];
 
-			},
+      },
 
       /* This processes a scoping abstraction that allows us to bind specific methods from the main object without exposing the entire object. */
       compileMagics:function(_this){
@@ -244,6 +244,7 @@ You should have received a copy of the GNU General Public License along with AAD
         },
 
         setSelectionIndex:function(index){
+          var _this = this;
 
           _this.s.state.currentlySelecting++;
           return _this.s.state.currentlySelecting;
@@ -278,10 +279,35 @@ You should have received a copy of the GNU General Public License along with AAD
 
           if (!clonedState.selections[index]) {
               _this.debug("deleting");
-             
               clonedState.selections.splice(index, 1);
           }
+          
+          // quality of life feature to reset state when selecting ranges
+          if (_this.s.rules.range && _this.s.state.currentlySelecting > 0 && _this.s.state.selections.length > 1) {
+              clonedState.selections[0] = clonedState.selections[1];
+              clonedState.selections[1] = false;
+              _this.s.state.currentlySelecting = 0;
+              if (!clonedState.selections[index]) {
+                _this.debug("deleting");
+                clonedState.selections.splice(index, 1);
+              }
+              index = 0;
+          }
+         
+          //the ol switcheroo... maybe we selected a range with the first date after the second date. lets fix it then validate
+          if (_this.s.rules.range && _this.s.state.currentlySelecting > 0 && clonedState.selections.length > 1) {
+            
+            var date1 = new Date(clonedState.selections[0].year, clonedState.selections[0].month, clonedState.selections[0].day);
+            var date2 = new Date(clonedState.selections[1].year, clonedState.selections[1].month, clonedState.selections[1].day);
+            if (date1.getTime() >= date2.getTime()) {
+              var sel1 = JSON.parse(JSON.stringify(clonedState.selections[0]));
+              var sel2 = JSON.parse(JSON.stringify(clonedState.selections[1]));
+              clonedState.selections[0] = sel2;
+              clonedState.selections[1] = sel1;
+            }
+          }
 
+          
           if (_this.stateValidation.validate(clonedState)) {
             
             //do updates
@@ -291,11 +317,11 @@ You should have received a copy of the GNU General Public License along with AAD
            
             if (_this.s.state.currentlySelecting < _this.s.rules.maxSelections-1) {
               _this.s.state.currentlySelecting++;//normally we'd use the API, but in this scenario its faster to increment.
-            } 
+            }
             
             _this.api.__getRender(false,false);
 
-
+            console.log(_this.s.state, "state");
             
             return true;
           } else {
@@ -338,6 +364,7 @@ You should have received a copy of the GNU General Public License along with AAD
       stateValidation:{
         
         lastValidationError:"",
+        lastValidationCode:"",
 
         clone:function(){//we'll make changes to a clone for validation before updating the actual state.
            var _this = this;
@@ -360,6 +387,25 @@ You should have received a copy of the GNU General Public License along with AAD
               }
 
               return true;
+        },
+        
+        // sometimes we want to just start over selection
+        fillAsStartIfErrorCode:function(newState, code){
+          var _this = this;
+          
+          _this.stateValidation.validate(newState);
+
+          if (_this.stateValidation.lastValidationCode == code && _this.s.rules.range) {
+
+            newState.selections[0] = newState.selections[1];
+            newState.selections[1] = false;
+            _this.api.setSelectionIndex(1);
+
+            return newState;
+          }
+
+          return newState;
+
         },
 
         validate:function(newState){
@@ -390,6 +436,7 @@ You should have received a copy of the GNU General Public License along with AAD
 
               if (diffDays > _this.s.rules.maxRange-1 && _this.s.rules.maxRange !== -1) {
                   _this.stateValidation.lastValidationError = "Date range too wide";
+                  _this.stateValidation.lastValidationCode = "too_wide";
                   return false;
               }
 
@@ -401,6 +448,7 @@ You should have received a copy of the GNU General Public License along with AAD
               if (date1.getTime() >= date2.getTime()) {
 
                   _this.stateValidation.lastValidationError = "The second date cannot be before or the same as the first date";
+                  _this.stateValidation.lastValidationCode = "second_greater_first";
                   return false;
 
               }
@@ -1230,14 +1278,14 @@ You should have received a copy of the GNU General Public License along with AAD
 
       }
 
-		};
+    };
 
-		var app_created = Object.create(app);
-		return app_created.init(s);
-	};
+    var app_created = Object.create(app);
+    return app_created.init(s);
+  };
     
     // we fire an event when this is loaded so that we don't rely strictly a proper dependency manager
     const event = new CustomEvent(widget_name+"-exists");
-	  document.dispatchEvent(event);
-	
+    document.dispatchEvent(event);
+  
 })();
